@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Football AI</title>
+</head>
+<body>
+<h1>Анализ футбольной игры ⚽</h1>
+
+<h2>Загрузка изображения</h2>
+<form action="/image" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="imageInput">
+    <br><br>
+    <button type="submit" id="imageBtn" disabled>
+        Анализ изображения
+    </button>
+</form>
+
+<h2>Загрузка видео</h2>
+<form action="/video" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="videoInput">
+    <br><br>
+    <button type="submit" id="videoBtn" disabled>
+        Анализ видео
+    </button>
+</form>
+
+<h2>Веб-камера</h2>
+<a href="/webcam"><button>Запустить стрим</button></a>
+
+<h2>Отчёт</h2>
+<a href="/report"><button>Скачать Excel</button></a>
+
+{% if image_result %}
+<h3>Результат:</h3>
+<img src="/static/results/result.jpg" width="600">
+{% endif %}
+
+{% if video_result %}
+<h3>Результат видео:</h3>
+<video width="600" controls>
+    <source src="/static/results/result.mp4" type="video/mp4">
+</video>
+{% endif %}
+
+</form>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const imageInput = document.getElementById("imageInput");
+    const imageBtn = document.getElementById("imageBtn");
+
+    if (imageInput && imageBtn) {
+        imageInput.addEventListener("change", function () {
+            imageBtn.disabled = imageInput.files.length === 0;
+        });
+    }
+
+    const videoInput = document.getElementById("videoInput");
+    const videoBtn = document.getElementById("videoBtn");
+
+    if (videoInput && videoBtn) {
+        videoInput.addEventListener("change", function () {
+            videoBtn.disabled = videoInput.files.length === 0;
+        });
+    }
+
+});
+</script>
+</body>
+</html>
